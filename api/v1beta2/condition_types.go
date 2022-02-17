@@ -36,4 +36,8 @@ const (
 	// HealthCheckFailedReason represents the fact that
 	// one of the health checks failed.
 	HealthCheckFailedReason string = "HealthCheckFailed"
+
+	// DependencyNotReadyReason represents the fact that
+	// one of the dependencies is not ready.
+	DependencyNotReadyReason string = "DependencyNotReady"
 )
