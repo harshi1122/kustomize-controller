@@ -12,7 +12,7 @@ require (
 	github.com/fluxcd/kustomize-controller/api v0.21.0
 	github.com/fluxcd/pkg/apis/acl v0.0.3
 	github.com/fluxcd/pkg/apis/kustomize v0.3.1
-	github.com/fluxcd/pkg/apis/meta v0.10.2
+	github.com/fluxcd/pkg/apis/meta v0.11.0-rc.3
 	github.com/fluxcd/pkg/runtime v0.12.4
 	github.com/fluxcd/pkg/ssa v0.13.0
 	github.com/fluxcd/pkg/testserver v0.2.0
