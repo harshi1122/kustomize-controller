@@ -13,7 +13,7 @@ require (
 	github.com/fluxcd/pkg/apis/acl v0.0.3
 	github.com/fluxcd/pkg/apis/kustomize v0.3.1
 	github.com/fluxcd/pkg/apis/meta v0.11.0-rc.3
-	github.com/fluxcd/pkg/runtime v0.12.4
+	github.com/fluxcd/pkg/runtime v0.13.0-rc.8
 	github.com/fluxcd/pkg/ssa v0.13.0
 	github.com/fluxcd/pkg/testserver v0.2.0
 	github.com/fluxcd/pkg/untar v0.1.0
@@ -159,8 +159,8 @@ require (
 	go.uber.org/multierr v1.6.0 // indirect
 	go.uber.org/zap v1.19.1 // indirect
 	golang.org/x/crypto v0.0.0-20210817164053-32db794688a5 // indirect
-	golang.org/x/oauth2 v0.0.0-20210819190943-2bc19b11175f // indirect
-	golang.org/x/sys v0.0.0-20211029165221-6e7872819dc8 // indirect
+	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8 // indirect
+	golang.org/x/sys v0.0.0-20211110154304-99a53858aa08 // indirect
 	golang.org/x/term v0.0.0-20210615171337-6886f2dfbf5b // indirect
 	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/time v0.0.0-20210723032227-1f47c861a9ac // indirect
@@ -199,3 +199,5 @@ replace github.com/opencontainers/runc => github.com/opencontainers/runc v1.0.3
 
 // Fix CVE-2021-41190
 replace github.com/opencontainers/image-spec => github.com/opencontainers/image-spec v1.0.2
+
+replace github.com/fluxcd/source-controller/api => github.com/fluxcd/source-controller/api v0.21.3-0.20220216150237-6804b676eb32

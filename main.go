@@ -37,7 +37,7 @@ import (
 	"github.com/fluxcd/pkg/runtime/metrics"
 	"github.com/fluxcd/pkg/runtime/pprof"
 	"github.com/fluxcd/pkg/runtime/probes"
-	sourcev1 "github.com/fluxcd/source-controller/api/v1beta1"
+	sourcev1 "github.com/fluxcd/source-controller/api/v1beta2"
 
 	kustomizev1 "github.com/fluxcd/kustomize-controller/api/v1beta2"
 	"github.com/fluxcd/kustomize-controller/controllers"
@@ -92,16 +92,6 @@ func main() {
 
 	ctrl.SetLogger(logger.NewLogger(logOptions))
 
-	var eventRecorder *events.Recorder
-	if eventsAddr != "" {
-		if er, err := events.NewRecorder(eventsAddr, controllerName); err != nil {
-			setupLog.Error(err, "unable to create event recorder")
-			os.Exit(1)
-		} else {
-			eventRecorder = er
-		}
-	}
-
 	metricsRecorder := metrics.NewRecorder()
 	crtlmetrics.Registry.MustRegister(metricsRecorder.Collectors()...)
 
@@ -133,13 +123,18 @@ func main() {
 	probes.SetupChecks(mgr, setupLog)
 	pprof.SetupHandlers(mgr, setupLog)
 
+	var eventRecorder *events.Recorder
+	if eventRecorder, err = events.NewRecorder(mgr, ctrl.Log, eventsAddr, controllerName); err != nil {
+		setupLog.Error(err, "unable to create event recorder")
+		os.Exit(1)
+	}
+
 	if err = (&controllers.KustomizationReconciler{
 		ControllerName:        controllerName,
 		DefaultServiceAccount: defaultServiceAccount,
 		Client:                mgr.GetClient(),
 		Scheme:                mgr.GetScheme(),
-		EventRecorder:         mgr.GetEventRecorderFor(controllerName),
-		ExternalEventRecorder: eventRecorder,
+		EventRecorder:         eventRecorder,
 		MetricsRecorder:       metricsRecorder,
 		StatusPoller:          polling.NewStatusPoller(mgr.GetClient(), mgr.GetRESTMapper(), nil),
 		NoCrossNamespaceRefs:  aclOptions.NoCrossNamespaceRefs,
